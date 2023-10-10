@@ -6,6 +6,7 @@ async function bootstrap() {
   // ajout prefix api à l'url
   app.setGlobalPrefix('api');
   app.enableCors();
+  app.useGlobalPipes(new ValidationPipe());
   // listen doit rester dernier
   await app.listen(3000);
 }
