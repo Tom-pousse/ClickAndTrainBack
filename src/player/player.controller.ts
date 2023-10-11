@@ -1,34 +1,43 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { PlayerService } from './player.service';
-import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { Player } from './entities/player.entity';
+import { GetUser } from 'src/auth/get-user.decorator';
 
-@Controller('player')
+@Controller('jeu')
 export class PlayerController {
   constructor(private readonly playerService: PlayerService) {}
 
-  @Post()
-  create(@Body() createPlayerDto: CreatePlayerDto) {
-    return this.playerService.create(createPlayerDto);
-  }
-
   @Get()
-  findAll() {
+  @UseGuards(AuthGuard())
+  findAll(@GetUser() player: Player) {
     return this.playerService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.playerService.findOne(+id);
+  @Get()
+  findOne(@GetUser() player: Player) {
+    return this.playerService.findOne(player.id_players);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePlayerDto: UpdatePlayerDto) {
-    return this.playerService.update(+id, updatePlayerDto);
+  @Patch()
+  @UseGuards(AuthGuard())
+  update(@Body() updatePlayerDto: UpdatePlayerDto, @GetUser() player: Player) {
+    console.log('maj', updatePlayerDto);
+
+    return this.playerService.update(player.id_players, updatePlayerDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.playerService.remove(+id);
+  @Delete()
+  remove(@Param('id') id: string, @GetUser() player: Player) {
+    return this.playerService.remove(player.id_players);
   }
 }

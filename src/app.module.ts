@@ -1,27 +1,29 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AcquireModule } from './acquire/acquire.module';
-import { PlayerModule } from './player/player.module';
 import { EnableModule } from './enable/enable.module';
+import { UpgradeModule } from './upgrade/upgrade.module';
 import { ParamModule } from './param/param.module';
+import { AcquireModule } from './acquire/acquire.module';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { Acquire } from './acquire/entities/acquire.entity';
 import { Enable } from './enable/entities/enable.entity';
 import { Param } from './param/entities/param.entity';
-import { Player } from './player/entities/player.entity';
 import { Upgrade } from './upgrade/entities/upgrade.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
+import { PlayerModule } from './player/player.module';
+import { Player } from './player/entities/player.entity';
 
 @Module({
   imports: [
-    // import du .env
     ConfigModule.forRoot({ envFilePath: [`.env`] }),
-    AcquireModule,
+
     PlayerModule,
     EnableModule,
+    UpgradeModule,
     ParamModule,
-    // import de typeOrmModule.forRoot({info du .env})
+    AcquireModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -29,11 +31,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      // entities
       entities: [Acquire, Enable, Param, Player, Upgrade],
-      // synchronize à false pour evité de généré des info en auto
       synchronize: false,
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

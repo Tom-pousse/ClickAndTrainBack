@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Player } from './entities/player.entity';
@@ -11,23 +10,30 @@ export class PlayerService {
     @InjectRepository(Player) private playerRepository: Repository<Player>,
   ) {}
 
-  create(createPlayerDto: CreatePlayerDto) {
-    return 'This action adds a new player';
-  }
-
   findAll() {
-    return `This action returns all player`;
+    return this.playerRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} player`;
+    return this.playerRepository.findOneBy({ id_players: id });
   }
 
-  update(id: number, updatePlayerDto: UpdatePlayerDto) {
-    return `This action updates a #${id} player`;
+  async update(id_players: number, updatePlayerDto: UpdatePlayerDto) {
+    const playerName = await this.findOne(id_players);
+    console.log(playerName);
+    const playerModif = this.playerRepository.merge(
+      playerName,
+      updatePlayerDto,
+    );
+    console.log(playerModif);
+    const result = await this.playerRepository.save(playerModif);
+    console.log(playerModif);
+    return result;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} player`;
+  async remove(id: number) {
+    const found = await this.findOne(id);
+    await this.playerRepository.remove(found);
+    return `Le joueur: ${found.nom_pseudo} à bien été supprimé.`;
   }
 }
