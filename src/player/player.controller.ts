@@ -13,17 +13,18 @@ import { AuthGuard } from '@nestjs/passport';
 import { Player } from './entities/player.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
 
-@Controller('jeu')
+@Controller()
 export class PlayerController {
   constructor(private readonly playerService: PlayerService) {}
 
-  @Get()
+  @Get('accueil')
   @UseGuards(AuthGuard())
   findAll(@GetUser() player: Player) {
     return this.playerService.findAll();
   }
 
-  @Get()
+  @Get('profil')
+  @UseGuards(AuthGuard())
   findOne(@GetUser() player: Player) {
     return this.playerService.findOne(player.id_players);
   }

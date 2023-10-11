@@ -642,3 +642,33 @@ Tu vas aussi pouvoir utiliser le décorateur @GetUser() user: User dans un param
     return this.tasksService.createTask(createTaskDto, user);
   }
 ```
+
+## Etape 6 :mise en place requete patch controler :
+
+```bash
+
+  @Patch()
+  @UseGuards(AuthGuard())
+  update(@Body() updatePlayerDto: UpdatePlayerDto, @GetUser() player: Player) {
+    console.log('maj', updatePlayerDto);
+
+    return this.playerService.update(player.id_players, updatePlayerDto);
+  }
+```
+
+## Etape 7 :mise en place requete patch service :
+
+```bash
+    async update(id_players: number, updatePlayerDto: UpdatePlayerDto) {
+    const playerName = await this.findOne(id_players);
+    console.log(playerName);
+    const playerModif = this.playerRepository.merge(
+      playerName,
+      updatePlayerDto,
+    );
+    console.log(playerModif);
+    const result = await this.playerRepository.save(playerModif);
+    console.log(playerModif);
+    return result;
+  }
+```
