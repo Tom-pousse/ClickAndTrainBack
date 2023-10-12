@@ -1,34 +1,57 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { AcquireService } from './acquire.service';
 import { CreateAcquireDto } from './dto/create-acquire.dto';
 import { UpdateAcquireDto } from './dto/update-acquire.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { Player } from 'src/player/entities/player.entity';
+import { Acquire } from './entities/acquire.entity';
+import { PlayerService } from 'src/player/player.service';
 
 @Controller('acquire')
 export class AcquireController {
   constructor(private readonly acquireService: AcquireService) {}
 
   @Post()
-  create(@Body() createAcquireDto: CreateAcquireDto) {
+  @UseGuards(AuthGuard())
+  create(
+    @Body() createAcquireDto: CreateAcquireDto,
+    @GetUser() player: Player,
+  ) {
     return this.acquireService.create(createAcquireDto);
   }
 
   @Get()
-  findAll() {
+  @UseGuards(AuthGuard())
+  findAll(@GetUser() player: Player) {
     return this.acquireService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.acquireService.findOne(+id);
+  @Get('profil')
+  @UseGuards(AuthGuard())
+  findOne(@GetUser() player: Player) {
+    return this.acquireService.findOne(player.id_players);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAcquireDto: UpdateAcquireDto) {
-    return this.acquireService.update(+id, updateAcquireDto);
+  @Patch()
+  @UseGuards(AuthGuard())
+  update(@Body() updatePlayerDto: UpdateAcquireDto, @GetUser() player: Player) {
+    // console.log('maj', updatePlayerDto);
+    // log pour le score
+    return this.acquireService.update(player.id_players, updatePlayerDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.acquireService.remove(+id);
+  @Delete()
+  remove(@Param('id') id: string, @GetUser() player: Player) {
+    return this.acquireService.remove(player.id_players);
   }
 }

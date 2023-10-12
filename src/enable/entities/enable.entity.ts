@@ -14,11 +14,10 @@ export class Enable {
   @Column()
   boo_status: boolean;
 
-  @ManyToOne(() => Param, (param) => param.enables)
-  @JoinColumn({ name: 'id_param', referencedColumnName: 'id_param' })
-  params: Param;
-
-  @ManyToOne(() => Player, (player) => player.enables)
-  @JoinColumn({ name: 'id_players', referencedColumnName: 'id_players' })
-  players: Player;
+  @ManyToOne(() => Player, (player) => player.enable)
+  @JoinColumn({ name: 'id_players' })
+  players: Player[];
+  @ManyToOne(() => Param, (param) => param.enable)
+  @JoinColumn({ name: 'id_param' })
+  param: Param[];
 }

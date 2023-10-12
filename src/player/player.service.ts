@@ -20,14 +20,14 @@ export class PlayerService {
 
   async update(id_players: number, updatePlayerDto: UpdatePlayerDto) {
     const playerName = await this.findOne(id_players);
-    console.log(playerName);
+    // console.log(playerName);
     const playerModif = this.playerRepository.merge(
       playerName,
       updatePlayerDto,
     );
-    console.log(playerModif);
+    // console.log(playerModif);
     const result = await this.playerRepository.save(playerModif);
-    console.log(playerModif);
+    // console.log(playerModif);
     return result;
   }
 

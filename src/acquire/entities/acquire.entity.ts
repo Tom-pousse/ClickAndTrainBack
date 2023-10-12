@@ -1,6 +1,13 @@
 import { Player } from 'src/player/entities/player.entity';
 import { Upgrade } from 'src/upgrade/entities/upgrade.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 
 @Entity()
 export class Acquire {
@@ -13,12 +20,14 @@ export class Acquire {
   @Column({ nullable: false, type: 'integer' })
   num_enable: number;
 
-  // Clé étrangère vers Export
-  @ManyToOne(() => Upgrade, (upgrade) => upgrade.acquires)
-  @JoinColumn({ name: 'id_upgrade', referencedColumnName: 'id_upgrade' })
-  upgrades: Upgrade;
-  // Clé étrangère vers Import
-  @ManyToOne(() => Player, (player) => player.acquires)
-  @JoinColumn({ name: 'id_players', referencedColumnName: 'id_players' })
-  players: Player;
+  // @ManyToOne(() => Param, (param) => param.enables)
+  // @JoinColumn({ name: 'id_param', referencedColumnName: 'id_param' })
+  // params: Param;
+
+  @ManyToOne(() => Player, (player) => player.acquire)
+  @JoinColumn({ name: 'id_players' })
+  players: Player[];
+  @ManyToOne(() => Upgrade, (upgrade) => upgrade.acquire)
+  @JoinColumn({ name: 'id_upgrade' })
+  upgrades: Upgrade[];
 }

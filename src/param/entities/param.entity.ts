@@ -1,9 +1,11 @@
 import { Enable } from 'src/enable/entities/enable.entity';
+import { Player } from 'src/player/entities/player.entity';
 import {
   Column,
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -15,10 +17,9 @@ export class Param {
   @Column({ nullable: false, length: 255 })
   nom_label: string;
 
-  // @ManyToMany(() => Enable, (enable) => enable.params)
-  // @JoinTable()
-  // enables: Enable[];
-  @ManyToMany(() => Enable, (enable) => enable.params)
-  @JoinTable()
-  enables: Enable;
+  @ManyToMany(() => Player, (player) => player.param)
+  player: Player[];
+
+  @OneToMany(() => Enable, (enable) => enable.param, { eager: true })
+  enable: Enable[];
 }

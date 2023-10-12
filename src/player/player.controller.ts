@@ -29,11 +29,11 @@ export class PlayerController {
     return this.playerService.findOne(player.id_players);
   }
 
-  @Patch()
+  @Patch('jeu')
   @UseGuards(AuthGuard())
   update(@Body() updatePlayerDto: UpdatePlayerDto, @GetUser() player: Player) {
-    console.log('maj', updatePlayerDto);
-
+    // console.log('maj', updatePlayerDto);
+    // log pour le score
     return this.playerService.update(player.id_players, updatePlayerDto);
   }
 

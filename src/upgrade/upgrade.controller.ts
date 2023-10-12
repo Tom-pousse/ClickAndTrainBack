@@ -1,7 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { UpgradeService } from './upgrade.service';
 import { CreateUpgradeDto } from './dto/create-upgrade.dto';
 import { UpdateUpgradeDto } from './dto/update-upgrade.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { Player } from 'src/player/entities/player.entity';
 
 @Controller('upgrade')
 export class UpgradeController {
@@ -12,23 +24,28 @@ export class UpgradeController {
     return this.upgradeService.create(createUpgradeDto);
   }
 
-  @Get()
-  findAll() {
+  @Get('a')
+  @UseGuards(AuthGuard())
+  findAll(@GetUser() player: Player) {
     return this.upgradeService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.upgradeService.findOne(+id);
+  @Get()
+  @UseGuards(AuthGuard())
+  findOne(@GetUser() player: Player) {
+    return this.upgradeService.findOne(player.id_players);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUpgradeDto: UpdateUpgradeDto) {
-    return this.upgradeService.update(+id, updateUpgradeDto);
+  @Patch()
+  @UseGuards(AuthGuard())
+  update(@Body() updatePlayerDto: UpdateUpgradeDto, @GetUser() player: Player) {
+    // console.log('maj', updatePlayerDto);
+    // log pour le score
+    return this.upgradeService.update(player.id_players, updatePlayerDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.upgradeService.remove(+id);
+  @Delete()
+  remove(@Param('id') id: string, @GetUser() player: Player) {
+    return this.upgradeService.remove(player.id_players);
   }
 }

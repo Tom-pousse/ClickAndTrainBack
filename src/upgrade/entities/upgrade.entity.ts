@@ -1,9 +1,11 @@
 import { Acquire } from 'src/acquire/entities/acquire.entity';
+import { Player } from 'src/player/entities/player.entity';
 import {
   Column,
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -24,7 +26,9 @@ export class Upgrade {
   @Column({ nullable: false, type: 'integer' })
   num_value: number;
 
-  @ManyToMany(() => Acquire, (acquire) => acquire.upgrades)
-  @JoinTable()
-  acquires: Acquire[];
+  @ManyToMany(() => Player, (player) => player.upgrade)
+  player: Player[];
+
+  @OneToMany(() => Acquire, (acquire) => acquire.upgrades, { eager: true })
+  acquire: Acquire[];
 }

@@ -22,7 +22,6 @@ export class CreateAuthDto {
   @IsString()
   @IsNotEmpty()
   @IsEmail()
-  @Matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
   nom_email: string;
 
   @IsString()
@@ -36,7 +35,6 @@ export class CreateAuthDto {
   )
   nom_password: string;
 
-  @IsPositive()
   @Min(0)
   @IsNotEmpty()
   num_score: number;

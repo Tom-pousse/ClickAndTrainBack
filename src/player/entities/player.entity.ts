@@ -1,10 +1,15 @@
 import { Acquire } from 'src/acquire/entities/acquire.entity';
 import { Enable } from 'src/enable/entities/enable.entity';
+import { Param } from 'src/param/entities/param.entity';
+import { Upgrade } from 'src/upgrade/entities/upgrade.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -28,7 +33,7 @@ export class Player {
   @Column()
   boo_admin: boolean;
 
-  @ManyToMany(() => Acquire, (acquire) => acquire.players)
+  @ManyToMany(() => Upgrade, (upgrade) => upgrade.player, { eager: true })
   @JoinTable({
     name: 'acquire',
     joinColumn: { name: 'id_players', referencedColumnName: 'id_players' },
@@ -37,9 +42,9 @@ export class Player {
       referencedColumnName: 'id_upgrade',
     },
   })
-  acquires: Acquire[];
+  upgrade: Upgrade[];
 
-  @ManyToMany(() => Enable, (enable) => enable.players)
+  @ManyToMany(() => Param, (param) => param.player, { eager: true })
   @JoinTable({
     name: 'enable',
     joinColumn: { name: 'id_players', referencedColumnName: 'id_players' },
@@ -48,16 +53,10 @@ export class Player {
       referencedColumnName: 'id_param',
     },
   })
-  enables: Enable[];
+  param: Param[];
 
-  // @ManyToMany(() => Enable, (enable) => enable.players)
-  // @JoinTable({
-  //   name: 'enable',
-  //   joinColumn: { name: 'id_players', referencedColumnName: 'id_players' },
-  //   inverseJoinColumn: {
-  //     name: 'id_param',
-  //     referencedColumnName: 'id_param',
-  //   },
-  // })
-  // enables: Enable[];
+  @OneToMany(() => Acquire, (acquire) => acquire.players, { eager: true })
+  acquire: Acquire[];
+  @OneToMany(() => Enable, (enable) => enable.players, { eager: true })
+  enable: Enable[];
 }
