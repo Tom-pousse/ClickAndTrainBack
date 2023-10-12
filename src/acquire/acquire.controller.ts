@@ -14,8 +14,6 @@ import { UpdateAcquireDto } from './dto/update-acquire.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { Player } from 'src/player/entities/player.entity';
-import { Acquire } from './entities/acquire.entity';
-import { PlayerService } from 'src/player/player.service';
 
 @Controller('acquire')
 export class AcquireController {
