@@ -40,7 +40,7 @@ export class AcquireController {
     return this.acquireService.findOne(player.id_players);
   }
 
-  @Patch()
+  @Patch('profil')
   @UseGuards(AuthGuard())
   update(@Body() updatePlayerDto: UpdateAcquireDto, @GetUser() player: Player) {
     // console.log('maj', updatePlayerDto);

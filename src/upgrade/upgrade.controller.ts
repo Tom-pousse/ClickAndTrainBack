@@ -24,7 +24,7 @@ export class UpgradeController {
     return this.upgradeService.create(createUpgradeDto);
   }
 
-  @Get('a')
+  @Get()
   @UseGuards(AuthGuard())
   findAll(@GetUser() player: Player) {
     return this.upgradeService.findAll();
