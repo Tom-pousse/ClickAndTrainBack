@@ -14,8 +14,7 @@ export class Upgrade {
   @PrimaryGeneratedColumn()
   id_upgrade: number;
 
-  @Column({ nullable: false, type: 'integer' })
-  num_level: number;
+  // supr de la valeur num_lvl
 
   @Column({ nullable: false, length: 255 })
   nom_name: string;

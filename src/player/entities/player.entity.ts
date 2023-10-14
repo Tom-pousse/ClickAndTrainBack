@@ -30,6 +30,10 @@ export class Player {
   @Column({ nullable: false, type: 'integer' })
   num_score: number;
 
+  //ajout de la valeur suplementaire
+  @Column({ nullable: false, type: 'integer' })
+  num_click: number;
+
   @Column()
   boo_admin: boolean;
 
@@ -55,7 +59,11 @@ export class Player {
   })
   param: Param[];
 
-  @OneToMany(() => Acquire, (acquire) => acquire.players, { eager: true })
+  @OneToMany(() => Acquire, (acquire) => acquire.players, {
+    // activation du mode cascade pour ouvrir le chmin vers acquire afin d'initialiser les upgrade par joueur
+    cascade: true,
+    eager: true,
+  })
   acquire: Acquire[];
   @OneToMany(() => Enable, (enable) => enable.players, { eager: true })
   enable: Enable[];

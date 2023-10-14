@@ -28,13 +28,16 @@ export class CreatePlayerDto {
   @IsNotEmpty()
   nom_password: string;
 
-  @IsPositive()
   @Min(0)
   @IsNotEmpty()
   num_score: number;
 
+  // ajout de valeur suplementaire
+  @Min(0)
+  @IsNotEmpty()
+  num_click: number;
+
   @IsBoolean()
   @IsNotEmpty()
-  @IsIn([true, false])
   boo_admin: boolean;
 }

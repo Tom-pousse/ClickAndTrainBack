@@ -19,11 +19,13 @@ export class Acquire {
   boo_status: boolean;
   @Column({ nullable: false, type: 'integer' })
   num_enable: number;
+  // ajout valeur supplementaire
+  @Column({ nullable: false, type: 'integer' })
+  num_value_upgrade: number;
 
   // @ManyToOne(() => Param, (param) => param.enables)
   // @JoinColumn({ name: 'id_param', referencedColumnName: 'id_param' })
   // params: Param;
-
   @ManyToOne(() => Player, (player) => player.acquire)
   @JoinColumn({ name: 'id_players' })
   players: Player[];

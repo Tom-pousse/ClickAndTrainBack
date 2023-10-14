@@ -35,12 +35,9 @@ export class CreateAuthDto {
   )
   nom_password: string;
 
-  @Min(0)
-  @IsNotEmpty()
   num_score: number;
 
-  @IsBoolean()
-  @IsNotEmpty()
-  @IsIn([true, false])
+  num_click: number;
+
   boo_admin: boolean;
 }

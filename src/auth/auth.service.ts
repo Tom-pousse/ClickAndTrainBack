@@ -17,6 +17,7 @@ export class AuthService {
   constructor(
     @InjectRepository(Player)
     private playerRepository: Repository<Player>,
+
     private jwtService: JwtService,
   ) {}
 
@@ -33,8 +34,74 @@ export class AuthService {
       nom_password: hashedPassword,
       nom_email,
       num_score: 0,
+      // ajout de la valeur supplementaire
+      num_click: 0,
       boo_admin: false,
+      // ajout de acquire pour initialiser les valeur par defaut a la creation
+      acquire: [
+        {
+          id_upgrade: 1,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+        {
+          id_upgrade: 2,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+        {
+          id_upgrade: 3,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+        {
+          id_upgrade: 4,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+        {
+          id_upgrade: 5,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+        {
+          id_upgrade: 6,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+        {
+          id_upgrade: 7,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+        {
+          id_upgrade: 8,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+        {
+          id_upgrade: 9,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+        {
+          id_upgrade: 10,
+          boo_status: true,
+          num_enable: 0,
+          num_value_upgrade: 0,
+        },
+      ],
     });
+    console.log(user);
 
     try {
       // enregistrement de l'entité user
@@ -46,6 +113,8 @@ export class AuthService {
       if (error.code === '23505') {
         throw new ConflictException('username already exists');
       } else {
+        console.log('error');
+
         throw new InternalServerErrorException();
       }
     }

@@ -16,4 +16,10 @@ export class CreateAcquireDto {
   @IsPositive()
   @IsNotEmpty()
   num_enable: number;
+
+  // ajout de la valeur supplementaire
+  @IsInt()
+  @IsPositive()
+  @IsNotEmpty()
+  num_value_upgrade: number;
 }
