@@ -22,7 +22,7 @@ export class PlayerController {
   findAll(@GetUser() player: Player) {
     return this.playerService.findAll();
   }
-
+  // commentaire
   @Get('profil')
   @UseGuards(AuthGuard())
   findOne(@GetUser() player: Player) {
