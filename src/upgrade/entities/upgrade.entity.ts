@@ -25,9 +25,16 @@ export class Upgrade {
   @Column({ nullable: false, type: 'integer' })
   num_value: number;
 
+  @Column({ nullable: false, type: 'integer' })
+  num_lvl: number;
+
   @ManyToMany(() => Player, (player) => player.upgrade)
   player: Player[];
 
-  @OneToMany(() => Acquire, (acquire) => acquire.upgrades, { eager: true })
+  @OneToMany(() => Acquire, (acquire) => acquire.upgrades, {
+    // activation du mode cascade pour ouvrir le chmin vers acquire afin d'initialiser les upgrade par joueur
+    cascade: true,
+    eager: true,
+  })
   acquire: Acquire[];
 }

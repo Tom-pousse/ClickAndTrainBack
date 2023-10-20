@@ -1,8 +1,11 @@
 import { IsBoolean, IsIn, IsNotEmpty } from 'class-validator';
 
 export class CreateEnableDto {
-  @IsBoolean()
-  @IsNotEmpty()
-  @IsIn([true, false])
+  id_players: number;
+
+  id_param: number;
+
+  nom_label: string;
+
   boo_status: boolean;
 }

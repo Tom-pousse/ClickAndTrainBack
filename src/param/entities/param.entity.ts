@@ -17,9 +17,12 @@ export class Param {
   @Column({ nullable: false, length: 255 })
   nom_label: string;
 
+  @Column()
+  boo_status: boolean;
+
   @ManyToMany(() => Player, (player) => player.param)
   player: Player[];
 
-  @OneToMany(() => Enable, (enable) => enable.param, { eager: true })
+  @OneToMany(() => Enable, (enable) => enable.param)
   enable: Enable[];
 }

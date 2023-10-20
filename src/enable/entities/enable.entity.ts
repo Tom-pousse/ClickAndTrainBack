@@ -12,12 +12,18 @@ export class Enable {
   id_param: number;
 
   @Column()
+  nom_label: string;
+
+  @Column()
   boo_status: boolean;
 
   @ManyToOne(() => Player, (player) => player.enable)
   @JoinColumn({ name: 'id_players' })
   players: Player[];
-  @ManyToOne(() => Param, (param) => param.enable)
+  @ManyToOne(() => Param, (param) => param.enable, {
+    cascade: true,
+    eager: true,
+  })
   @JoinColumn({ name: 'id_param' })
   param: Param[];
 }

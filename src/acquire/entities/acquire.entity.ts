@@ -12,23 +12,22 @@ import {
 @Entity()
 export class Acquire {
   @PrimaryColumn({ nullable: false, type: 'integer' })
-  id_upgrade: number;
-  @PrimaryColumn({ nullable: false, type: 'integer' })
   id_players: number;
-  @Column({ nullable: false, type: 'boolean' })
-  boo_status: boolean;
+  @PrimaryColumn({ nullable: false, type: 'integer' })
+  id_upgrade: number;
+  @Column({ nullable: false })
+  nom_name: string;
   @Column({ nullable: false, type: 'integer' })
-  num_enable: number;
-  // ajout valeur supplementaire
+  num_cost: number;
   @Column({ nullable: false, type: 'integer' })
-  num_value_upgrade: number;
+  num_value: number;
+  @Column({ nullable: false, type: 'integer' })
+  num_lvl: number;
 
-  // @ManyToOne(() => Param, (param) => param.enables)
-  // @JoinColumn({ name: 'id_param', referencedColumnName: 'id_param' })
-  // params: Param;
   @ManyToOne(() => Player, (player) => player.acquire)
   @JoinColumn({ name: 'id_players' })
   players: Player[];
+
   @ManyToOne(() => Upgrade, (upgrade) => upgrade.acquire)
   @JoinColumn({ name: 'id_upgrade' })
   upgrades: Upgrade[];

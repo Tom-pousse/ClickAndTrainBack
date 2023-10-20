@@ -32,9 +32,9 @@ export class PlayerController {
   @Patch('jeu')
   @UseGuards(AuthGuard())
   update(@Body() updatePlayerDto: UpdatePlayerDto, @GetUser() player: Player) {
-    // console.log('maj', updatePlayerDto);
+    console.log('maj', updatePlayerDto);
     // log pour le score
-    return this.playerService.update(player.id_players, updatePlayerDto);
+    return this.playerService.update(updatePlayerDto);
   }
 
   @Delete()

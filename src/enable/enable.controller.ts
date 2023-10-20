@@ -1,34 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { EnableService } from './enable.service';
 import { CreateEnableDto } from './dto/create-enable.dto';
 import { UpdateEnableDto } from './dto/update-enable.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { Player } from 'src/player/entities/player.entity';
 
 @Controller('enable')
 export class EnableController {
-  constructor(private readonly enableService: EnableService) {}
-
-  @Post()
-  create(@Body() createEnableDto: CreateEnableDto) {
-    return this.enableService.create(createEnableDto);
-  }
+  constructor(private enableService: EnableService) {}
 
   @Get()
-  findAll() {
+  @UseGuards(AuthGuard())
+  findAll(@GetUser() player: Player) {
     return this.enableService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.enableService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEnableDto: UpdateEnableDto) {
-    return this.enableService.update(+id, updateEnableDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.enableService.remove(+id);
   }
 }

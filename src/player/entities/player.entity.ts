@@ -65,6 +65,10 @@ export class Player {
     eager: true,
   })
   acquire: Acquire[];
-  @OneToMany(() => Enable, (enable) => enable.players, { eager: true })
+
+  @OneToMany(() => Enable, (enable) => enable.players, {
+    cascade: true,
+    eager: true,
+  })
   enable: Enable[];
 }

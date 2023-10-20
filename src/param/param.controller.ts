@@ -1,34 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { ParamService } from './param.service';
 import { CreateParamDto } from './dto/create-param.dto';
 import { UpdateParamDto } from './dto/update-param.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { Player } from 'src/player/entities/player.entity';
 
 @Controller('param')
 export class ParamController {
   constructor(private readonly paramService: ParamService) {}
 
-  @Post()
-  create(@Body() createParamDto: CreateParamDto) {
-    return this.paramService.create(createParamDto);
-  }
-
   @Get()
-  findAll() {
-    return this.paramService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.paramService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateParamDto: UpdateParamDto) {
-    return this.paramService.update(+id, updateParamDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.paramService.remove(+id);
+  @UseGuards(AuthGuard())
+  findAll(@GetUser() player: Player) {
+    return this.paramService.getAllParam();
   }
 }

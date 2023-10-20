@@ -11,23 +11,7 @@ export class EnableService {
     @InjectRepository(Enable) private enableRepository: Repository<Enable>,
   ) {}
 
-  create(createEnableDto: CreateEnableDto) {
-    return 'This action adds a new enable';
-  }
-
   findAll() {
-    return `This action returns all enable`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} enable`;
-  }
-
-  update(id: number, updateEnableDto: UpdateEnableDto) {
-    return `This action updates a #${id} enable`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} enable`;
+    return this.enableRepository.find();
   }
 }

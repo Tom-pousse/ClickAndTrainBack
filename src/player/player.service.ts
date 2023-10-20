@@ -3,12 +3,17 @@ import { UpdatePlayerDto } from './dto/update-player.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Player } from './entities/player.entity';
 import { Repository } from 'typeorm';
+import { CreatePlayerDto } from './dto/create-player.dto';
 
 @Injectable()
 export class PlayerService {
   constructor(
     @InjectRepository(Player) private playerRepository: Repository<Player>,
   ) {}
+
+  create(createPlayerDto: CreatePlayerDto) {
+    return 'This action adds a new player';
+  }
 
   findAll() {
     return this.playerRepository.find();
@@ -18,16 +23,9 @@ export class PlayerService {
     return this.playerRepository.findOneBy({ id_players: id });
   }
 
-  async update(id_players: number, updatePlayerDto: UpdatePlayerDto) {
-    const playerName = await this.findOne(id_players);
-    // console.log(playerName);
-    const playerModif = this.playerRepository.merge(
-      playerName,
-      updatePlayerDto,
-    );
-    // console.log(playerModif);
-    const result = await this.playerRepository.save(playerModif);
-    // console.log(playerModif);
+  async update(updatePlayerDto: UpdatePlayerDto) {
+    const result = await this.playerRepository.save(updatePlayerDto);
+    console.log(updatePlayerDto);
     return result;
   }
 

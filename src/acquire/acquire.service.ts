@@ -25,16 +25,8 @@ export class AcquireService {
     return this.acquireRepository.findOneBy({ id_players: id });
   }
 
-  async update(id_players: number, updateAcquireDto: UpdateAcquireDto) {
-    const playerName = await this.findOne(id_players);
-    // console.log(playerName);
-    const playerModif = this.acquireRepository.merge(
-      playerName,
-      updateAcquireDto,
-    );
-    // console.log(playerModif);
-    const result = await this.acquireRepository.save(playerModif);
-    // console.log(playerModif);
+  async update(updateAcquireDto: UpdateAcquireDto) {
+    const result = await this.acquireRepository.save(updateAcquireDto);
     return result;
   }
 

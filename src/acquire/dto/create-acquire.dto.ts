@@ -1,25 +1,16 @@
-import {
-  IsBoolean,
-  IsIn,
-  IsInt,
-  IsNotEmpty,
-  IsPositive,
-} from 'class-validator';
+import { IsBoolean, IsIn, IsInt, IsNotEmpty } from 'class-validator';
 
 export class CreateAcquireDto {
-  @IsBoolean()
   @IsNotEmpty()
-  @IsIn([true, false])
-  boo_status: boolean;
-
-  @IsInt()
-  @IsPositive()
+  id_players: number;
   @IsNotEmpty()
-  num_enable: number;
-
-  // ajout de la valeur supplementaire
-  @IsInt()
-  @IsPositive()
+  id_upgrade: number;
   @IsNotEmpty()
-  num_value_upgrade: number;
+  nom_name: string;
+  @IsNotEmpty()
+  num_cost: number;
+  @IsNotEmpty()
+  num_value: number;
+  @IsNotEmpty()
+  num_lvl: number;
 }

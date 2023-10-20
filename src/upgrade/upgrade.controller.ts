@@ -19,11 +19,6 @@ import { Player } from 'src/player/entities/player.entity';
 export class UpgradeController {
   constructor(private readonly upgradeService: UpgradeService) {}
 
-  @Post()
-  create(@Body() createUpgradeDto: CreateUpgradeDto) {
-    return this.upgradeService.create(createUpgradeDto);
-  }
-
   @Get()
   @UseGuards(AuthGuard())
   findAll(@GetUser() player: Player) {
@@ -34,18 +29,5 @@ export class UpgradeController {
   @UseGuards(AuthGuard())
   findOne(@GetUser() player: Player) {
     return this.upgradeService.findOne(player.id_players);
-  }
-
-  @Patch()
-  @UseGuards(AuthGuard())
-  update(@Body() updatePlayerDto: UpdateUpgradeDto, @GetUser() player: Player) {
-    // console.log('maj', updatePlayerDto);
-    // log pour le score
-    return this.upgradeService.update(player.id_players, updatePlayerDto);
-  }
-
-  @Delete()
-  remove(@Param('id') id: string, @GetUser() player: Player) {
-    return this.upgradeService.remove(player.id_players);
   }
 }
