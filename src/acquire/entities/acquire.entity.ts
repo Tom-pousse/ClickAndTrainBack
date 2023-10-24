@@ -15,12 +15,7 @@ export class Acquire {
   id_players: number;
   @PrimaryColumn({ nullable: false, type: 'integer' })
   id_upgrade: number;
-  @Column({ nullable: false })
-  nom_name: string;
-  @Column({ nullable: false, type: 'integer' })
-  num_cost: number;
-  @Column({ nullable: false, type: 'integer' })
-  num_value: number;
+
   @Column({ nullable: false, type: 'integer' })
   num_lvl: number;
 

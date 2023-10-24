@@ -672,3 +672,7 @@ Tu vas aussi pouvoir utiliser le décorateur @GetUser() user: User dans un param
     return result;
   }
 ```
+
+test avec socket io:
+
+npm install --save @nestjs/platform-socket.io @nestjs/websockets socket.io

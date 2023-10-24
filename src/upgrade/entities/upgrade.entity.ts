@@ -25,9 +25,6 @@ export class Upgrade {
   @Column({ nullable: false, type: 'integer' })
   num_value: number;
 
-  @Column({ nullable: false, type: 'integer' })
-  num_lvl: number;
-
   @ManyToMany(() => Player, (player) => player.upgrade)
   player: Player[];
 

@@ -5,12 +5,7 @@ export class CreateAcquireDto {
   id_players: number;
   @IsNotEmpty()
   id_upgrade: number;
-  @IsNotEmpty()
-  nom_name: string;
-  @IsNotEmpty()
-  num_cost: number;
-  @IsNotEmpty()
-  num_value: number;
+
   @IsNotEmpty()
   num_lvl: number;
 }

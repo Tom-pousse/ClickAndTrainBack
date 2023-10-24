@@ -14,16 +14,20 @@ import { Upgrade } from './upgrade/entities/upgrade.entity';
 import { AuthModule } from './auth/auth.module';
 import { PlayerModule } from './player/player.module';
 import { Player } from './player/entities/player.entity';
+import { SocketModule } from './socket/socket.module';
+import { SocketService } from './socket/socket.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: [`.env`] }),
 
     PlayerModule,
-    EnableModule,
     UpgradeModule,
     ParamModule,
+    EnableModule,
     AcquireModule,
+    SocketModule,
+
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -37,6 +41,6 @@ import { Player } from './player/entities/player.entity';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SocketService],
 })
 export class AppModule {}

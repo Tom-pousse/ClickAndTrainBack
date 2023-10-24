@@ -14,6 +14,7 @@ import { UpdateEnableDto } from './dto/update-enable.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { Player } from 'src/player/entities/player.entity';
+import { Enable } from './entities/enable.entity';
 
 @Controller('enable')
 export class EnableController {
@@ -23,5 +24,12 @@ export class EnableController {
   @UseGuards(AuthGuard())
   findAll(@GetUser() player: Player) {
     return this.enableService.findAll();
+  }
+
+  @Patch('profil')
+  @UseGuards(AuthGuard())
+  update(@Body() updateEnableDto: UpdateEnableDto, @GetUser() player: Player) {
+    console.log('maj', updateEnableDto);
+    return this.enableService.update(updateEnableDto);
   }
 }

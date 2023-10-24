@@ -7,6 +7,7 @@ import { PassportModule } from '@nestjs/passport';
 import { Enable } from 'src/enable/entities/enable.entity';
 import { EnableModule } from 'src/enable/enable.module';
 import { ParamModule } from 'src/param/param.module';
+import { SocketModule } from 'src/socket/socket.module';
 
 @Module({
   // import de type orm indivuduel a chaque module
@@ -16,5 +17,6 @@ import { ParamModule } from 'src/param/param.module';
   ],
   controllers: [PlayerController],
   providers: [PlayerService],
+  exports: [PlayerService],
 })
 export class PlayerModule {}

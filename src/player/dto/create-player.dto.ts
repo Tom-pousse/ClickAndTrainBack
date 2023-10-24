@@ -12,8 +12,8 @@ import { Acquire } from 'src/acquire/entities/acquire.entity';
 import { Enable } from 'src/enable/entities/enable.entity';
 
 export class CreatePlayerDto {
-  // @IsString()
-  // @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   // // ojectif du match limité les doublons par utilisation des majuscule ex: Alfred ALfred AlfreD ce qui est une partique courante dans les jeux
   // @Matches(/^[A-Z][a-z0-9]*$/, {
   //   message:
