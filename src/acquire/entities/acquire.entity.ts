@@ -23,7 +23,7 @@ export class Acquire {
   @JoinColumn({ name: 'id_players' })
   players: Player[];
 
-  @ManyToOne(() => Upgrade, (upgrade) => upgrade.acquire)
-  @JoinColumn({ name: 'id_upgrade' })
-  upgrades: Upgrade[];
+  // @ManyToOne(() => Upgrade, (upgrade) => upgrade.acquire)
+  // @JoinColumn({ name: 'id_upgrade' })
+  // upgrades: Upgrade[];
 }

@@ -25,7 +25,10 @@ export class PlayerService {
 
   async update(updatePlayerDto: UpdatePlayerDto) {
     const result = await this.playerRepository.save(updatePlayerDto);
-    console.log(updatePlayerDto);
+    if (result) {
+      console.log('update bdd', updatePlayerDto);
+    }
+
     return result;
   }
 

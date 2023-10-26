@@ -15,7 +15,6 @@ import { AuthModule } from './auth/auth.module';
 import { PlayerModule } from './player/player.module';
 import { Player } from './player/entities/player.entity';
 import { SocketModule } from './socket/socket.module';
-import { SocketService } from './socket/socket.service';
 
 @Module({
   imports: [
@@ -41,6 +40,6 @@ import { SocketService } from './socket/socket.service';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, SocketService],
+  providers: [AppService],
 })
 export class AppModule {}

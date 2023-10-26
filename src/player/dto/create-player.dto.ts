@@ -30,18 +30,13 @@ export class CreatePlayerDto {
   @IsNotEmpty()
   nom_password: string;
 
-  @Min(0)
   @IsNotEmpty()
   num_score: number;
 
   // ajout de valeur suplementaire
-  @Min(0)
+
   @IsNotEmpty()
   num_click: number;
-
-  @IsBoolean()
-  @IsNotEmpty()
-  boo_admin: boolean;
 
   acquire: Acquire[];
   enable: Enable[];

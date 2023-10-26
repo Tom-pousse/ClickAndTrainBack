@@ -36,7 +36,6 @@ export class AuthService {
       num_score: 0,
       // ajout de la valeur supplementaire
       num_click: 0,
-      boo_admin: false,
     });
     console.log(user);
 

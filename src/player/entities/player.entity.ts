@@ -27,26 +27,24 @@ export class Player {
   @Column({ nullable: false, length: 255 })
   nom_password: string;
 
-  @Column({ nullable: false, type: 'integer' })
+  @Column({ nullable: false })
+  // , type: 'numeric', precision: 18, scale: 1  pourquoi en tpant ça j'obtien un string de ma db ?
   num_score: number;
 
   //ajout de la valeur suplementaire
   @Column({ nullable: false, type: 'integer' })
   num_click: number;
 
-  @Column()
-  boo_admin: boolean;
-
-  @ManyToMany(() => Upgrade, (upgrade) => upgrade.player, { eager: true })
-  @JoinTable({
-    name: 'acquire',
-    joinColumn: { name: 'id_players', referencedColumnName: 'id_players' },
-    inverseJoinColumn: {
-      name: 'id_upgrade',
-      referencedColumnName: 'id_upgrade',
-    },
-  })
-  upgrade: Upgrade[];
+  // @ManyToMany(() => Upgrade, (upgrade) => upgrade.player, { eager: true })
+  // @JoinTable({
+  //   name: 'acquire',
+  //   joinColumn: { name: 'id_players', referencedColumnName: 'id_players' },
+  //   inverseJoinColumn: {
+  //     name: 'id_upgrade',
+  //     referencedColumnName: 'id_upgrade',
+  //   },
+  // })
+  // upgrade: Upgrade[];
 
   @ManyToMany(() => Param, (param) => param.player, { eager: true })
   @JoinTable({
