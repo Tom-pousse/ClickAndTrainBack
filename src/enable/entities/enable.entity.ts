@@ -12,9 +12,6 @@ export class Enable {
   id_param: number;
 
   @Column()
-  nom_label: string;
-
-  @Column()
   boo_status: boolean;
 
   @ManyToOne(() => Player, (player) => player.enable)

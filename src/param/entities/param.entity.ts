@@ -20,8 +20,8 @@ export class Param {
   @Column()
   boo_status: boolean;
 
-  @ManyToMany(() => Player, (player) => player.param)
-  player: Player[];
+  // @ManyToMany(() => Player, (player) => player.param)
+  // player: Player[];
 
   @OneToMany(() => Enable, (enable) => enable.param)
   enable: Enable[];

@@ -46,15 +46,15 @@ export class Player {
   // })
   // upgrade: Upgrade[];
 
-  @ManyToMany(() => Param, (param) => param.player, { eager: true })
-  @JoinTable({
-    name: 'enable',
-    joinColumn: { name: 'id_players', referencedColumnName: 'id_players' },
-    inverseJoinColumn: {
-      name: 'id_param',
-      referencedColumnName: 'id_param',
-    },
-  })
+  // @ManyToMany(() => Param, (param) => param.player, { eager: true })
+  // @JoinTable({
+  //   name: 'enable',
+  //   joinColumn: { name: 'id_players', referencedColumnName: 'id_players' },
+  //   inverseJoinColumn: {
+  //     name: 'id_param',
+  //     referencedColumnName: 'id_param',
+  //   },
+  // })
   param: Param[];
 
   @OneToMany(() => Acquire, (acquire) => acquire.players, {

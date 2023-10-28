@@ -5,7 +5,5 @@ export class CreateEnableDto {
 
   id_param: number;
 
-  nom_label: string;
-
   boo_status: boolean;
 }
