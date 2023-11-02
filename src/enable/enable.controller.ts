@@ -25,11 +25,4 @@ export class EnableController {
   findAll(@GetUser() player: Player) {
     return this.enableService.findAll();
   }
-
-  @Patch('profil')
-  @UseGuards(AuthGuard())
-  update(@Body() updateEnableDto: UpdateEnableDto, @GetUser() player: Player) {
-    console.log('maj', updateEnableDto);
-    return this.enableService.update(updateEnableDto);
-  }
 }

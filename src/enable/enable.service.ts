@@ -14,9 +14,4 @@ export class EnableService {
   findAll() {
     return this.enableRepository.find();
   }
-
-  async update(updateEnableDto: UpdateEnableDto) {
-    const result = await this.enableRepository.save(updateEnableDto);
-    return result;
-  }
 }

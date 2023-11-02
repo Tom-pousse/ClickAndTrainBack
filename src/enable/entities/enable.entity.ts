@@ -17,10 +17,7 @@ export class Enable {
   @ManyToOne(() => Player, (player) => player.enable)
   @JoinColumn({ name: 'id_players' })
   players: Player[];
-  @ManyToOne(() => Param, (param) => param.enable, {
-    cascade: true,
-    eager: true,
-  })
+  @ManyToOne(() => Param, (param) => param.enable, {})
   @JoinColumn({ name: 'id_param' })
   param: Param[];
 }

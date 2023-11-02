@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UpdatePlayerDto } from './dto/update-player.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Player } from './entities/player.entity';
@@ -24,12 +24,18 @@ export class PlayerService {
   }
 
   async update(updatePlayerDto: UpdatePlayerDto) {
-    const result = await this.playerRepository.save(updatePlayerDto);
-    if (result) {
-      console.log('update bdd', updatePlayerDto);
-    }
+    try {
+      const result = await this.playerRepository.save(updatePlayerDto);
+      if (result) {
+        console.log('update bdd ppppppppppppppppp', updatePlayerDto);
+      }
 
-    return result;
+      return result;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        ` erreur de la mise à jour : ${error.message}`,
+      );
+    }
   }
 
   async remove(id: number) {

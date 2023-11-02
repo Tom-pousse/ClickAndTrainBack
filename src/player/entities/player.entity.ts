@@ -55,7 +55,7 @@ export class Player {
   //     referencedColumnName: 'id_param',
   //   },
   // })
-  param: Param[];
+  // param: Param[];
 
   @OneToMany(() => Acquire, (acquire) => acquire.players, {
     // activation du mode cascade pour ouvrir le chmin vers acquire afin d'initialiser les upgrade par joueur
