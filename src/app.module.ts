@@ -36,6 +36,7 @@ import { SocketModule } from './socket/socket.module';
       database: process.env.POSTGRES_DATABASE,
       entities: [Acquire, Enable, Param, Player, Upgrade],
       synchronize: false,
+      // logging: true, sert a afficher les requetes
     }),
     AuthModule,
   ],

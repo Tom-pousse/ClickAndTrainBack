@@ -25,7 +25,9 @@ export class PlayerService {
 
   async update(updatePlayerDto: UpdatePlayerDto) {
     try {
-      const result = await this.playerRepository.save(updatePlayerDto);
+      const user = await this.findOne(updatePlayerDto['id_players']);
+      const updatedPlayer = this.playerRepository.merge(user, updatePlayerDto);
+      const result = await this.playerRepository.save(updatedPlayer);
       if (result) {
         console.log('update bdd ppppppppppppppppp', updatePlayerDto);
       }
@@ -38,9 +40,9 @@ export class PlayerService {
     }
   }
 
-  async remove(id: number) {
-    const found = await this.findOne(id);
-    await this.playerRepository.remove(found);
-    return `Le joueur: ${found.nom_pseudo} à bien été supprimé.`;
+  async remove(player: Player) {
+    await this.playerRepository.remove(player);
+
+    return player;
   }
 }

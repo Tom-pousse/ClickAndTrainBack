@@ -12,6 +12,7 @@ import { UpdatePlayerDto } from './dto/update-player.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Player } from './entities/player.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
+import { log, profile } from 'console';
 
 @Controller()
 export class PlayerController {
@@ -37,8 +38,11 @@ export class PlayerController {
     return this.playerService.update(updatePlayerDto);
   }
 
-  @Delete()
-  remove(@Param('id') id: string, @GetUser() player: Player) {
-    return this.playerService.remove(player.id_players);
+  @Delete('profil')
+  @UseGuards(AuthGuard())
+  remove(@GetUser() player: Player) {
+    console.log('mon joueur delete', player);
+
+    return this.playerService.remove(player);
   }
 }

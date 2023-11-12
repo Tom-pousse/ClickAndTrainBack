@@ -16,8 +16,8 @@ export class Enable {
 
   @ManyToOne(() => Player, (player) => player.enable)
   @JoinColumn({ name: 'id_players' })
-  players: Player[];
-  @ManyToOne(() => Param, (param) => param.enable, {})
+  players: Player;
+  @ManyToOne(() => Param, (param) => param.enable)
   @JoinColumn({ name: 'id_param' })
-  param: Param[];
+  param: Param;
 }
