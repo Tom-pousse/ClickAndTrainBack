@@ -1,16 +1,5 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { UpgradeService } from './upgrade.service';
-import { CreateUpgradeDto } from './dto/create-upgrade.dto';
-import { UpdateUpgradeDto } from './dto/update-upgrade.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { Player } from 'src/player/entities/player.entity';
@@ -23,11 +12,5 @@ export class UpgradeController {
   @UseGuards(AuthGuard())
   findAll(@GetUser() player: Player) {
     return this.upgradeService.findAll();
-  }
-
-  @Get()
-  @UseGuards(AuthGuard())
-  findOne(@GetUser() player: Player) {
-    return this.upgradeService.findOne(player.id_players);
   }
 }

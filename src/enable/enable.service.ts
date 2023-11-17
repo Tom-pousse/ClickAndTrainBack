@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEnableDto } from './dto/create-enable.dto';
-import { UpdateEnableDto } from './dto/update-enable.dto';
 import { Enable } from './entities/enable.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

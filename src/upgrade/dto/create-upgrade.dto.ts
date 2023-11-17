@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsPositive, IsString, Min } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateUpgradeDto {
   // supr de la valeur num_lvl
@@ -6,13 +6,13 @@ export class CreateUpgradeDto {
   @IsNotEmpty()
   nom_name: string;
 
-  @IsPositive()
-  @Min(0)
+  @IsNotEmpty()
+  @IsInt()
   @IsNotEmpty()
   num_cost: number;
 
-  @IsPositive()
-  @Min(0)
+  @IsNotEmpty()
+  @IsInt()
   @IsNotEmpty()
   num_value: number;
 }

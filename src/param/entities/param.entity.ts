@@ -1,13 +1,5 @@
 import { Enable } from 'src/enable/entities/enable.entity';
-import { Player } from 'src/player/entities/player.entity';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Param {
@@ -19,9 +11,6 @@ export class Param {
 
   @Column()
   boo_status: boolean;
-
-  // @ManyToMany(() => Player, (player) => player.param)
-  // player: Player[];
 
   @OneToMany(() => Enable, (enable) => enable.param)
   enable: Enable[];

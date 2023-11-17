@@ -8,7 +8,6 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
 import { LoginDto } from './dto/login-auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Player } from 'src/player/entities/player.entity';
@@ -24,7 +23,7 @@ export class AuthService {
   async register(createAuthDto: CreateAuthDto) {
     const { nom_pseudo, nom_password, nom_email } = createAuthDto;
 
-    // hashage du mot de passe
+    // hashage + salage du mot de passe
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(nom_password, salt);
 
@@ -47,7 +46,7 @@ export class AuthService {
     } catch (error) {
       // gestion des erreurs
       if (error.code === '23505') {
-        throw new ConflictException('username already exists');
+        throw new ConflictException('utilisateur existe déja');
       } else {
         console.log('error');
 

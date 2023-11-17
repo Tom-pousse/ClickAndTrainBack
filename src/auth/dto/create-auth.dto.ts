@@ -1,21 +1,19 @@
 import {
-  IsBoolean,
   IsEmail,
-  IsIn,
+  IsInt,
   IsNotEmpty,
-  IsPositive,
+  IsNumber,
   IsString,
   Matches,
-  Min,
+  MinLength,
 } from 'class-validator';
 
 export class CreateAuthDto {
   @IsString()
   @IsNotEmpty()
-  // ojectif du match limité les doublons par utilisation des majuscule ex: Alfred ALfred AlfreD ce qui est une partique courante dans les jeux
-  @Matches(/^[A-Z][a-z0-9]*$/, {
+  @Matches(/^[A-Z][a-zA-Z0-9]*$/, {
     message:
-      'Merci de commencer votre Pseudo par une majuscule puis des minuscules et/ou chiffres.',
+      'Merci de commencer votre Pseudo par une majuscule puis des minuscules, maj et/ou chiffres.',
   })
   nom_pseudo: string;
 
@@ -24,20 +22,20 @@ export class CreateAuthDto {
   @IsEmail()
   nom_email: string;
 
+  @MinLength(8)
   @IsString()
   @IsNotEmpty()
-  @Matches(
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
-    {
-      message:
-        'Votre mot de passe doit contenir: 1 lettre majuscule et minuscule, un chiffre, un caractère spécial et faire au moins 8 caractère.',
-    },
-  )
+  @Matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/, {
+    message:
+      'Un mot de passe valide dois comporter 8 caractères, 1 lettre minuscule, 1 lettre majuscule 1 chiffre et 1 caractère spécial.',
+  })
   nom_password: string;
-
+  @IsNotEmpty()
+  @IsNumber()
+  @IsNotEmpty()
   num_score: number;
-
+  @IsNotEmpty()
+  @IsInt()
+  @IsNotEmpty()
   num_click: number;
-
-  boo_admin: boolean;
 }

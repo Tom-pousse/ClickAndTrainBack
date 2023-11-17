@@ -20,38 +20,9 @@ import { log } from 'console';
 export class AcquireController {
   constructor(private acquireService: AcquireService) {}
 
-  @Post()
-  @UseGuards(AuthGuard())
-  create(
-    @Body() createAcquireDto: CreateAcquireDto,
-    @GetUser() player: Player,
-  ) {
-    console.log(createAcquireDto);
-
-    return this.acquireService.create(createAcquireDto);
-  }
-
   @Get('profil')
   @UseGuards(AuthGuard())
   findAll(@GetUser() player: Player) {
     return this.acquireService.findAll();
-  }
-
-  @Get('profil')
-  @UseGuards(AuthGuard())
-  findOne(@GetUser() player: Player) {
-    return this.acquireService.findOne(player.id_players);
-  }
-
-  @Patch('profil')
-  @UseGuards(AuthGuard())
-  update(@Body() updatePlayerDto: UpdateAcquireDto, @GetUser() player: Player) {
-    console.log('maj', updatePlayerDto);
-    return this.acquireService.update(updatePlayerDto);
-  }
-
-  @Delete()
-  remove(@Param('id') id: string, @GetUser() player: Player) {
-    return this.acquireService.remove(player.id_players);
   }
 }

@@ -3,7 +3,6 @@ import {
   Get,
   Body,
   Patch,
-  Param,
   Delete,
   UseGuards,
 } from '@nestjs/common';
@@ -12,7 +11,6 @@ import { UpdatePlayerDto } from './dto/update-player.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Player } from './entities/player.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
-import { log, profile } from 'console';
 
 @Controller()
 export class PlayerController {

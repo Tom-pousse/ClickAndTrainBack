@@ -1,9 +1,12 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { UpdatePlayerDto } from './dto/update-player.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Player } from './entities/player.entity';
 import { Repository } from 'typeorm';
-import { CreatePlayerDto } from './dto/create-player.dto';
 
 @Injectable()
 export class PlayerService {
@@ -11,16 +14,24 @@ export class PlayerService {
     @InjectRepository(Player) private playerRepository: Repository<Player>,
   ) {}
 
-  create(createPlayerDto: CreatePlayerDto) {
-    return 'This action adds a new player';
-  }
-
   findAll() {
     return this.playerRepository.find();
   }
 
-  findOne(id: number) {
-    return this.playerRepository.findOneBy({ id_players: id });
+  async findOne(id: number) {
+    try {
+      const found = await this.playerRepository.findOneBy({ id_players: id });
+      console.log(found);
+
+      if (!found) {
+        throw new NotFoundException(`Le joueur n'a pas été trouvé`);
+      }
+      return found;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `erreur lors de la recherche du joueur : ${error.message}`,
+      );
+    }
   }
 
   async update(updatePlayerDto: UpdatePlayerDto) {
@@ -29,7 +40,7 @@ export class PlayerService {
       const updatedPlayer = this.playerRepository.merge(user, updatePlayerDto);
       const result = await this.playerRepository.save(updatedPlayer);
       if (result) {
-        console.log('update bdd ppppppppppppppppp', updatePlayerDto);
+        // console.log('update de :', updatePlayerDto);
       }
 
       return result;
@@ -41,8 +52,14 @@ export class PlayerService {
   }
 
   async remove(player: Player) {
-    await this.playerRepository.remove(player);
+    try {
+      const response = await this.playerRepository.remove(player);
 
-    return player;
+      return response;
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `erreur de la suppression : ${error.message}`,
+      );
+    }
   }
 }

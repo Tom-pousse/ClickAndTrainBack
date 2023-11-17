@@ -1,13 +1,6 @@
 import { Player } from 'src/player/entities/player.entity';
 import { Upgrade } from 'src/upgrade/entities/upgrade.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Acquire {
@@ -22,8 +15,4 @@ export class Acquire {
   @ManyToOne(() => Player, (player) => player.acquire)
   @JoinColumn({ name: 'id_players' })
   players: Player[];
-
-  // @ManyToOne(() => Upgrade, (upgrade) => upgrade.acquire)
-  // @JoinColumn({ name: 'id_upgrade' })
-  // upgrades: Upgrade[];
 }
