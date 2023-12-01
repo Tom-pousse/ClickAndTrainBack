@@ -21,6 +21,7 @@ export class AuthService {
   ) {}
 
   async register(createAuthDto: CreateAuthDto) {
+    // console.log('je passe par le create auth service ', createAuthDto);
     const { nom_pseudo, nom_password, nom_email } = createAuthDto;
 
     // hashage + salage du mot de passe
@@ -28,15 +29,14 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(nom_password, salt);
 
     // création d'une entité user
-    const user = this.playerRepository.create({
+    const user: Player = this.playerRepository.create({
       nom_pseudo,
       nom_password: hashedPassword,
       nom_email,
       num_score: 0,
-      // ajout de la valeur supplementaire
       num_click: 0,
     });
-    console.log(user);
+    // console.log(user);
 
     try {
       // enregistrement de l'entité user

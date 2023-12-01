@@ -32,10 +32,8 @@ export class CreateAuthDto {
   nom_password: string;
   @IsNotEmpty()
   @IsNumber()
-  @IsNotEmpty()
   num_score: number;
   @IsNotEmpty()
   @IsInt()
-  @IsNotEmpty()
   num_click: number;
 }

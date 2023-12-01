@@ -33,14 +33,9 @@ export class CreatePlayerDto {
   })
   nom_password: string;
 
-  @IsNotEmpty()
-  @IsNumber()
-  @IsNotEmpty()
-  num_score: number;
-  @IsNotEmpty()
-  @IsInt()
-  @IsNotEmpty()
-  num_click: number;
+  num_score?: number;
+
+  num_click?: number;
 
   acquire: Acquire[];
   enable: Enable[];
