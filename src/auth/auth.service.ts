@@ -21,7 +21,6 @@ export class AuthService {
   ) {}
 
   async register(createAuthDto: CreateAuthDto) {
-    // console.log('je passe par le create auth service ', createAuthDto);
     const { nom_pseudo, nom_password, nom_email } = createAuthDto;
 
     // hashage + salage du mot de passe
@@ -36,7 +35,6 @@ export class AuthService {
       num_score: 0,
       num_click: 0,
     });
-    // console.log(user);
 
     try {
       // enregistrement de l'entité user
@@ -48,7 +46,7 @@ export class AuthService {
       if (error.code === '23505') {
         throw new ConflictException('utilisateur existe déja');
       } else {
-        console.log('error');
+        // console.log('error');
 
         throw new InternalServerErrorException();
       }

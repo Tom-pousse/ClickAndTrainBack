@@ -22,8 +22,6 @@ export class ParamController {
   @Get()
   @UseGuards(AuthGuard())
   findAll(@GetUser() player: Player) {
-    console.log(this.paramService.getAllParam());
-
     return this.paramService.getAllParam();
   }
 }

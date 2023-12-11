@@ -14,10 +14,15 @@ import { Player } from 'src/player/entities/player.entity';
   cors: {
     origin: (origin, callback) => {
       const allowedOrigins = ['http://localhost:4200'];
+      // console.log('origin', origin);
 
       // Vérifier si l'origine est définie avant de la traiter
       if (!origin) {
         callback(new Error('Origine non définie pour WebSocket'));
+        //gestion du undefined qui posais probleme dans la méthode mais du coup plus de restriction si undefined.
+        //reviens a faire simplement la ligne 12 si activer
+        // callback(null, true);
+
         return;
       }
 
@@ -40,19 +45,19 @@ export class SocketGateway {
   constructor(private playerService: PlayerService) {}
 
   handleConnection(client: Socket) {
-    console.log(`Client connecté: ${client.id}`);
+    // console.log(`Client connecté: ${client.id}`);
   }
 
   //pour save
   @SubscribeMessage('clickZone')
   envoieParClickZone(client: Socket, data: Player) {
-    console.log('bien recu', data, client.connected);
+    // console.log('bien recu', data, client.connected);
 
     const updatedPlayer = this.playerService.update(data);
     // lance ma sauvegarde
 
     if (updatedPlayer) {
-      console.log('je renvoie', updatedPlayer);
+      // console.log('je renvoie', updatedPlayer);
       client.emit('clickZone', data);
     } else {
       client.emit('clickZoneError', 'Échec de la mise à jour du joueur');
@@ -60,6 +65,6 @@ export class SocketGateway {
   }
 
   handleDisconnect(client: Socket) {
-    console.log(`Client disconnected: ${client.id}`);
+    // console.log(`Client disconnected: ${client.id}`);
   }
 }

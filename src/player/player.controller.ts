@@ -16,6 +16,12 @@ import { GetUser } from 'src/auth/get-user.decorator';
 export class PlayerController {
   constructor(private readonly playerService: PlayerService) {}
 
+  @Get('classement')
+  @UseGuards(AuthGuard())
+  async getPlayerRankings(): Promise<Player[]> {
+    return await this.playerService.classement();
+  }
+
   @Get('accueil')
   @UseGuards(AuthGuard())
   findAll(@GetUser() player: Player) {
@@ -31,16 +37,12 @@ export class PlayerController {
   @Patch('jeu')
   @UseGuards(AuthGuard())
   update(@Body() updatePlayerDto: UpdatePlayerDto, @GetUser() player: Player) {
-    console.log('je passe par le controller ', updatePlayerDto);
-    // log pour le score
     return this.playerService.update(updatePlayerDto);
   }
 
   @Delete('profil')
   @UseGuards(AuthGuard())
   remove(@GetUser() player: Player) {
-    console.log('mon joueur delete', player);
-
     return this.playerService.remove(player);
   }
 }

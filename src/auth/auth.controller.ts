@@ -9,7 +9,6 @@ export class AuthController {
 
   @Post('register')
   create(@Body() createAuthDto: CreateAuthDto) {
-    // console.log('je passe par le create auth control ', createAuthDto);
     return this.authService.register(createAuthDto);
   }
 
